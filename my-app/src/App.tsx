@@ -2,13 +2,15 @@ import { useState } from "react";
 
 function App() {
   const [showEditor, setShowEditor] = useState(false);
-  const [person, setPerson] = useState({
-    name: "",
-    dob: "",
-    location: "",
-    photo: "",
-  });
-  const [nodes, setNodes] = useState([]);
+  const [person, setPerson] = useState<{
+    name: string;
+    dob: string;
+    location: string;
+    photo: string;
+  }>({ name: "", dob: "", location: "", photo: "" });
+  const [nodes, setNodes] = useState<
+    { name: string; dob: string; location: string; photo: string }[]
+  >([]);
   return (
     <div
       style={{
@@ -24,44 +26,48 @@ function App() {
     >
       {/* TOP RIGHT BUTTON */}
       {/* TOP RIGHT BUTTON - Always on top */}
-<div style={{
-  position: "fixed",
-  top: "clamp(20px, 5vw, 40px)",
-  right: "clamp(20px, 5vw, 40px)",
-  zIndex: 2000  // Higher than title (10) + nodes
-}}>
-  <button
-    onClick={() => {
-      console.log("New Tree clicked!");  // Debug log
-      setShowEditor(true);
-    }}
-    style={{
-      background: "linear-gradient(135deg, #8b5cf6 0%, #4f46e5 50%, #3730a3 100%)",
-      color: "white",
-      padding: "clamp(12px, 4vw, 18px) clamp(24px, 6vw, 36px)",
-      borderRadius: "9999px",
-      border: "none",
-      fontSize: "clamp(16px, 4vw, 18px)",
-      fontWeight: "700",
-      cursor: "pointer",
-      boxShadow: "0 10px 30px rgba(139, 92, 246, 0.4)",
-      minWidth: "clamp(140px, 20vw, 160px)",
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-      whiteSpace: "nowrap"
-    }}
-    onMouseEnter={(e) => {
-      e.target.style.transform = "translateY(-4px) scale(1.05)";
-      e.target.style.boxShadow = "0 20px 40px rgba(139, 92, 246, 0.6)";
-    }}
-    onMouseLeave={(e) => {
-      e.target.style.transform = "translateY(0) scale(1)";
-      e.target.style.boxShadow = "0 10px 30px rgba(139, 92, 246, 0.4)";
-    }}
-  >
-    + New Tree
-  </button>
-</div>
-
+      <div
+        style={{
+          position: "fixed",
+          top: "clamp(20px, 5vw, 40px)",
+          right: "clamp(20px, 5vw, 40px)",
+          zIndex: 2000, // Higher than title (10) + nodes
+        }}
+      >
+        <button
+          onClick={() => {
+            console.log("New Tree clicked!"); // Debug log
+            setShowEditor(true);
+          }}
+          style={{
+            background:
+              "linear-gradient(135deg, #8b5cf6 0%, #4f46e5 50%, #3730a3 100%)",
+            color: "white",
+            padding: "clamp(12px, 4vw, 18px) clamp(24px, 6vw, 36px)",
+            borderRadius: "9999px",
+            border: "none",
+            fontSize: "clamp(16px, 4vw, 18px)",
+            fontWeight: "700",
+            cursor: "pointer",
+            boxShadow: "0 10px 30px rgba(139, 92, 246, 0.4)",
+            minWidth: "clamp(140px, 20vw, 160px)",
+            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            whiteSpace: "nowrap",
+          }}
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.currentTarget as HTMLButtonElement;
+            target.style.transform = "translateY(-4px) scale(1.05)";
+            target.style.boxShadow = "0 20px 40px rgba(139, 92, 246, 0.6)";
+          }}
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.currentTarget as HTMLButtonElement;
+            target.style.transform = "translateY(0) scale(1)";
+            target.style.boxShadow = "0 10px 30px rgba(139, 92, 246, 0.4)";
+          }}
+        >
+          + New Tree
+        </button>
+      </div>
 
       {/* WELCOME SCREEN - TOP CENTER */}
       {!showEditor && (
